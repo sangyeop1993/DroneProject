@@ -1,4 +1,4 @@
-package kosa.team2.drone.network;
+package kosa.team2.drone.test;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.json.JSONObject;
