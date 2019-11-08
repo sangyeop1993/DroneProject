@@ -15,6 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import kosa.team2.gcs.network.Drone;
 import kosa.team2.gcs.network.NetworkConfig;
+import kosa.team2.gcs.service1.Service1;
+import kosa.team2.gcs.service2.Service2;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -68,6 +70,11 @@ public class GcsMainController implements Initializable {
 	@FXML public Button btnEast;
 	@FXML public Button btnWest;
 
+	@FXML public Button btnService1;
+	@FXML public Button btnService2;
+	@FXML public Button btnService3;
+
+
 	public Drone drone;
 	//---------------------------------------------------------------------------------
 	@Override
@@ -99,6 +106,10 @@ public class GcsMainController implements Initializable {
 		btnSouth.setOnAction(btnSouthEventHandler);
 		btnEast.setOnAction(btnEastEventHandler);
 		btnWest.setOnAction(btnWestEventHandler);
+
+		btnService1.setOnAction(btnService1EventHandler);
+		btnService2.setOnAction(btnService2EventHandler);
+		btnService3.setOnAction(btnService3EventHandler);
 
 		drone = new Drone();
 
@@ -653,4 +664,29 @@ public class GcsMainController implements Initializable {
 			drone.flightController.sendFindControl(0, -1); //m/s
 		}
 	};
+
+	public EventHandler<ActionEvent> btnService1EventHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			Service1 service1 = new Service1();
+			service1.show();
+		}
+	};
+
+	public EventHandler<ActionEvent> btnService2EventHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			Service2 service2 = new Service2();
+			service2.show();
+		}
+	};
+
+	public EventHandler<ActionEvent> btnService3EventHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("나는 service3 입니다");
+		}
+	};
+
+
 }
