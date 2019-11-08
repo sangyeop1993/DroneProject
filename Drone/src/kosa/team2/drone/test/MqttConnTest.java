@@ -1,14 +1,18 @@
 package kosa.team2.drone.test;
 
+import com.pi4j.io.gpio.RaspiPin;
 import org.eclipse.paho.client.mqttv3.*;
 import org.json.JSONObject;
 
 public class MqttConnTest  {
     //Field
     private MqttClient client;
+    private Electromagnet electromagnet;
 
     //Constructor
     public MqttConnTest() throws Exception {
+        //자석 생성
+        Electromagnet electromagnet = new Electromagnet(RaspiPin.GPIO_24, RaspiPin.GPIO_25);
         //Mqtt Conn
         client = new MqttClient("tcp://localhost:1882", MqttClient.generateClientId(), null);
         client.connect();
@@ -28,8 +32,14 @@ public class MqttConnTest  {
                 String json = new String(arr);
                 JSONObject obj = new JSONObject(json);
                 String action = obj.getString("action");
-                if(action.equals("ON")) {
-
+                if(action.equals("on")) {
+                    while(action.equals("on")) {
+                        electromagnet.on();
+                    }
+                } else {
+                    while(action.equals("off")) {
+                        electromagnet.off();
+                    }
                 }
             }
 
