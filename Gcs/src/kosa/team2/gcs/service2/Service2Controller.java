@@ -20,12 +20,19 @@ public class Service2Controller implements Initializable {
     @FXML
     private Button btnMagnetOff;
 
+    ElectricMagnet em;
+
     //Method
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnCancel.setOnAction(btnCancelEventHandler);
         btnMagnetOn.setOnAction(btnMagnetOnEventHandler);
         btnMagnetOff.setOnAction(btnMagnetOffEventHandler);
+        try {
+            em = new ElectricMagnet();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private EventHandler<ActionEvent> btnCancelEventHandler = new EventHandler<ActionEvent>() {
@@ -40,7 +47,6 @@ public class Service2Controller implements Initializable {
         @Override
         public void handle(ActionEvent event) {
             try {
-                ElectricMagnet em = new ElectricMagnet();
                 em.magnetOn();
             } catch (Exception e) {}
         }
@@ -50,7 +56,6 @@ public class Service2Controller implements Initializable {
         @Override
         public void handle(ActionEvent event) {
             try {
-                ElectricMagnet em = new ElectricMagnet();
                 em.magnetOff();
             } catch (Exception e) {}
         }

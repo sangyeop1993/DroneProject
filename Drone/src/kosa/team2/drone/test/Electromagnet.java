@@ -56,16 +56,13 @@ public class Electromagnet {
             public void messageArrived(String s, MqttMessage message) throws Exception {
                 byte[] arr = message.getPayload();
                 String json = new String(arr);
+                System.out.println(json);
                 JSONObject obj = new JSONObject(json);
                 String action = obj.getString("action");
                 if (action.equals("on")) {
-                    while (action.equals("on")) {
-                        on();
-                    }
+                    on();
                 } else {
-                    while (action.equals("off")) {
-                        off();
-                    }
+                    off();
                 }
             }
 
@@ -74,5 +71,7 @@ public class Electromagnet {
 
             }
         });
+
+        client.subscribe(subTopic);
     }
 }
