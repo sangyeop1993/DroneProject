@@ -10,6 +10,8 @@ public class Electromagnet {
     private GpioPinDigitalOutput magnetPin1;
     private GpioPinDigitalOutput magnetPin2;
 
+    private String status;
+
     //Constructor
     public Electromagnet(Pin magnet1, Pin magnet2) {
         controller = GpioFactory.getInstance();
@@ -18,13 +20,15 @@ public class Electromagnet {
     }
 
     //Method
-    public void off() {
-        magnetPin1.low();
-        magnetPin2.low();
-    }
     public void on() {
         magnetPin1.high();
         magnetPin2.high();
+        status = "on";
+    }
+    public void off() {
+        magnetPin1.low();
+        magnetPin2.low();
+        status = "off";
     }
 
     private MqttClient client;
@@ -74,4 +78,21 @@ public class Electromagnet {
 
         client.subscribe(subTopic);
     }
+    //---------------------------------------------------------------
+    Thread thread = new Thread() {
+        @Override
+        public void run() {
+            JSONObject obj = new JSONObject(status);
+            obj.put("status", status);
+            String json = obj.toString();
+            try {
+                while(true) {
+                    client.publish("/drone/test/pub", json.getBytes(), 0, false);
+                    Thread.sleep(1000);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 }

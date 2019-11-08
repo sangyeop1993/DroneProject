@@ -13,12 +13,9 @@ import java.util.ResourceBundle;
 
 public class Service2Controller implements Initializable {
     //Field
-    @FXML
-    private Button btnCancel;
-    @FXML
-    private Button btnMagnetOn;
-    @FXML
-    private Button btnMagnetOff;
+    @FXML private Button btnCancel;
+    @FXML private Button btnMagnetOn;
+    @FXML private Button btnMagnetOff;
 
     ElectricMagnet em;
 

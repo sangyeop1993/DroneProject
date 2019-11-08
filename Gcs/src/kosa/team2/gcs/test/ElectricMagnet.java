@@ -1,7 +1,10 @@
 package kosa.team2.gcs.test;
 
 import kosa.team2.gcs.network.NetworkConfig;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONObject;
 
 public class ElectricMagnet {
@@ -15,6 +18,26 @@ public class ElectricMagnet {
     }
 
     //Method
+    public void electronicMagnetStatus() {
+        client.setCallback(new MqttCallback() {
+            @Override
+            public void connectionLost(Throwable throwable) {
+
+            }
+
+            @Override
+            public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+                JSONObject obj = new JSONObject(mqttMessage);
+                System.out.println(obj);
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+        });
+    }
+    //-------------------------------------------------------------------
     public void magnetOn() throws Exception {
         JSONObject obj = new JSONObject();
         obj.put("action", "on");
