@@ -1,6 +1,8 @@
 package kosa.team2.drone.test;
 
 import com.pi4j.io.gpio.*;
+import org.eclipse.paho.client.mqttv3.*;
+import org.json.JSONObject;
 
 public class Electromagnet {
     //Field
@@ -23,5 +25,54 @@ public class Electromagnet {
     public void on() {
         magnetPin1.high();
         magnetPin2.high();
+    }
+
+    private MqttClient client;
+    private String pubTopic;
+    private String subTopic;
+
+    public void mattConnect(String mqttBrokerConnStr, String pubTopic, String subTopic) throws Exception {
+        this.pubTopic = pubTopic;
+        this.subTopic = subTopic;
+        while (true) {
+            try {
+                client = new MqttClient(mqttBrokerConnStr, MqttClient.generateClientId(), null);
+                MqttConnectOptions options = new MqttConnectOptions();
+                client.connect(options);
+                break;
+            } catch (Exception e) {}
+        }
+        receiveJSON();
+    }
+
+    public void receiveJSON() throws Exception {
+        client.setCallback(new MqttCallback() {
+            @Override
+            public void connectionLost(Throwable throwable) {
+
+            }
+
+            @Override
+            public void messageArrived(String s, MqttMessage message) throws Exception {
+                byte[] arr = message.getPayload();
+                String json = new String(arr);
+                JSONObject obj = new JSONObject(json);
+                String action = obj.getString("action");
+                if (action.equals("on")) {
+                    while (action.equals("on")) {
+                        on();
+                    }
+                } else {
+                    while (action.equals("off")) {
+                        off();
+                    }
+                }
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+        });
     }
 }

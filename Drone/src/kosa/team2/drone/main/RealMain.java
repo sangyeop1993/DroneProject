@@ -5,7 +5,9 @@ java -Djava.library.path=/usr/lib/jni:/home/pi/opencv/opencv-3.4.5/build/lib -cp
 package kosa.team2.drone.main;
 
 
+import com.pi4j.io.gpio.RaspiPin;
 import kosa.team2.drone.network.NetworkConfig;
+import kosa.team2.drone.test.Electromagnet;
 import syk.drone.device.Camera;
 import syk.drone.device.FlightController;
 
@@ -36,5 +38,14 @@ public class RealMain {
                 networkConfig.droneTopic +"/cam1/pub",
                 networkConfig.droneTopic +"/cam1/sub"
         );
+
+        Electromagnet em = new Electromagnet(RaspiPin.GPIO_24, RaspiPin.GPIO_25);
+        try {
+            em.mattConnect(
+                    networkConfig.mqttBrokerConnStr,
+                    networkConfig.droneTopic + "/test/pub",
+                    networkConfig.droneTopic + "/test/sub"
+            );
+        } catch (Exception e) {}
     }
 }
