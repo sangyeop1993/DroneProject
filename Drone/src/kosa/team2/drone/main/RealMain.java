@@ -7,6 +7,7 @@ package kosa.team2.drone.main;
 
 import com.pi4j.io.gpio.RaspiPin;
 import kosa.team2.drone.network.NetworkConfig;
+import kosa.team2.drone.test.ConnectionTest;
 import kosa.team2.drone.test.Electromagnet;
 import syk.drone.device.Camera;
 import syk.drone.device.FlightController;
@@ -47,5 +48,12 @@ public class RealMain {
                     networkConfig.droneTopic + "/test/sub"
             );
         } catch (Exception e) {}
+
+        try {
+            ConnectionTest ct = new ConnectionTest();
+            ct.sendMessage();
+        }catch(Exception e) {
+            System.out.println("Error");
+        }
     }
 }

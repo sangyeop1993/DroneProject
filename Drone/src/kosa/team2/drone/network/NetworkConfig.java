@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class NetworkConfig {
     public String mqttBrokerConnStr;
-    public String droneTopic;
+    public static String droneTopic;
 
     public NetworkConfig() {
         try {
