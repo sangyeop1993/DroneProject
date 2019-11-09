@@ -15,10 +15,12 @@ public class ElectricMagnet {
     public ElectricMagnet() throws Exception {
         client = new MqttClient("tcp://localhost:1882", MqttClient.generateClientId(), null);
         client.connect();
+        electronicMagnetStatus();
     }
 
     //Method
     public void electronicMagnetStatus() {
+        System.out.println("연결이 되엇다");
         client.setCallback(new MqttCallback() {
             @Override
             public void connectionLost(Throwable throwable) {
@@ -36,6 +38,9 @@ public class ElectricMagnet {
 
             }
         });
+        try {
+            client.subscribe(NetworkConfig.getInstance().droneTopic+"/text/pub");
+        } catch (Exception e) {}
     }
     //-------------------------------------------------------------------
     public void magnetOn() throws Exception {

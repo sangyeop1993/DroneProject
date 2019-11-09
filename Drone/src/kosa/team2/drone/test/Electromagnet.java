@@ -10,7 +10,7 @@ public class Electromagnet {
     private GpioPinDigitalOutput magnetPin1;
     private GpioPinDigitalOutput magnetPin2;
 
-    private String status;
+    private String status = "off";
 
     //Constructor
     public Electromagnet(Pin magnet1, Pin magnet2) {
@@ -60,7 +60,7 @@ public class Electromagnet {
             public void messageArrived(String s, MqttMessage message) throws Exception {
                 byte[] arr = message.getPayload();
                 String json = new String(arr);
-                System.out.println(json);
+                //System.out.println(json);
                 JSONObject obj = new JSONObject(json);
                 String action = obj.getString("action");
                 if (action.equals("on")) {
@@ -79,20 +79,5 @@ public class Electromagnet {
         client.subscribe(subTopic);
     }
     //---------------------------------------------------------------
-    Thread thread = new Thread() {
-        @Override
-        public void run() {
-            JSONObject obj = new JSONObject(status);
-            obj.put("status", status);
-            String json = obj.toString();
-            try {
-                while(true) {
-                    client.publish("/drone/test/pub", json.getBytes(), 0, false);
-                    Thread.sleep(1000);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
+
 }
