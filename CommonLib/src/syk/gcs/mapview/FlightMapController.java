@@ -103,6 +103,7 @@ public class FlightMapController implements Initializable {
         html += "        <script src='https://maps.googleapis.com/maps/api/js?key=" + apiKey + "&libraries=geometry,drawing&callback=map.init' async defer></script>";
         html += "    </body>";
         html += "</html>";
+        //webEngine.load("http://106.253.56.124:8082/FinalWebProject/");
         webEngine.loadContent(html);
         zoomSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
