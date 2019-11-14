@@ -48,7 +48,6 @@ public class RealMain {
                     networkConfig.droneTopic + "/test/sub"
             );
 
-
         } catch (Exception e) {}
 
         try {

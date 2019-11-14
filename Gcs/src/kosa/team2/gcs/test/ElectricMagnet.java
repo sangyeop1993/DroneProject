@@ -10,10 +10,11 @@ import org.json.JSONObject;
 public class ElectricMagnet {
     //Field
     private MqttClient client;
+    private NetworkConfig networkConfig;
 
     //Constructor
     public ElectricMagnet() throws Exception {
-        client = new MqttClient("tcp://localhost:1882", MqttClient.generateClientId(), null);
+        client = new MqttClient( "tcp://106.253.56.124:1882", MqttClient.generateClientId(), null);
         client.connect();
         electronicMagnetStatus();
     }
@@ -30,7 +31,8 @@ public class ElectricMagnet {
             @Override
             public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
                 JSONObject obj = new JSONObject(mqttMessage);
-                System.out.println(obj);
+                String json = obj.getString("status");
+                System.out.println(json);
             }
 
             @Override
@@ -39,7 +41,7 @@ public class ElectricMagnet {
             }
         });
         try {
-            client.subscribe(NetworkConfig.getInstance().droneTopic+"/text/pub");
+            client.subscribe(networkConfig.droneTopic + "/test/pub");
         } catch (Exception e) {}
     }
     //-------------------------------------------------------------------

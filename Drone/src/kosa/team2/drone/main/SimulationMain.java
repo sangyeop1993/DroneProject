@@ -13,7 +13,9 @@ public class SimulationMain {
         NetworkConfig networkConfig = new NetworkConfig();
 
         FlightController flightController = new FlightController();
+        //sitl3.6과 연결
         flightController.mavlinkConnectTcp("localhost", 5760);
+        //Mqtt Brocker와 연결
         flightController.mqttConnect(
                 networkConfig.mqttBrokerConnStr,
                 networkConfig.droneTopic +"/fc/pub",

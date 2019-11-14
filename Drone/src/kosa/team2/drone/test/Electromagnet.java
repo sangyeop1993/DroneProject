@@ -1,11 +1,13 @@
 package kosa.team2.drone.test;
 
 import com.pi4j.io.gpio.*;
+import kosa.team2.drone.network.NetworkConfig;
 import org.eclipse.paho.client.mqttv3.*;
 import org.json.JSONObject;
 
 public class Electromagnet {
     //Field
+    private NetworkConfig networkConfig = new NetworkConfig();
     private GpioController controller;
     private GpioPinDigitalOutput magnetPin1;
     private GpioPinDigitalOutput magnetPin2;
@@ -14,9 +16,12 @@ public class Electromagnet {
 
     //Constructor
     public Electromagnet(Pin magnet1, Pin magnet2) {
+        System.out.println("객체생성완료");
         controller = GpioFactory.getInstance();
         magnetPin1 = controller.provisionDigitalOutputPin(magnet1);
         magnetPin2 = controller.provisionDigitalOutputPin(magnet2);
+        //------------------------------------------------------------------------
+        magetStatus();
     }
 
     //Method
@@ -79,5 +84,21 @@ public class Electromagnet {
         client.subscribe(subTopic);
     }
     //---------------------------------------------------------------
-
+    public void magetStatus() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                while(true) {
+                    JSONObject obj = new JSONObject();
+                    obj.put("status", status);
+                    String json = obj.toString();
+                    try {
+                        client.publish(networkConfig.droneTopic + "/test/pub", json.getBytes(), 0, false);
+                        Thread.sleep(1000);
+                    } catch(Exception e) {}
+                }
+            }
+        };
+        thread.start();
+    }
 }

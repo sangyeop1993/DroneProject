@@ -75,7 +75,6 @@ public class GcsMainController implements Initializable {
 	@FXML public Button btnService2;
 	@FXML public Button btnService3;
 
-
 	public Drone drone;
 	//---------------------------------------------------------------------------------
 	@Override
