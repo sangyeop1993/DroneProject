@@ -14,7 +14,5 @@ public class ServiceMagenet {
         stage = new Stage(StageStyle.UTILITY);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(GcsMain.instance.primaryStage);
-
-
     }
 }

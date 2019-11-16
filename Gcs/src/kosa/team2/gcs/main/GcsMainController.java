@@ -15,7 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import kosa.team2.gcs.network.Drone;
 import kosa.team2.gcs.network.NetworkConfig;
-import kosa.team2.gcs.service1.Service1;
+import kosa.team2.gcs.report.Report;
 import kosa.team2.gcs.service2.Service2;
 import kosa.team2.gcs.service3.Service3;
 import org.json.JSONArray;
@@ -76,6 +76,7 @@ public class GcsMainController implements Initializable {
 	@FXML public Button btnService3;
 
 	public Drone drone;
+	public Report report;
 	//---------------------------------------------------------------------------------
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -112,7 +113,9 @@ public class GcsMainController implements Initializable {
 		btnService3.setOnAction(btnService3EventHandler);
 
 		drone = new Drone();
+		report = new Report();
 
+		arrivedReceive();
 		initHud();
 		initMessageView();
 		initCameraView();
@@ -146,6 +149,14 @@ public class GcsMainController implements Initializable {
 				}
 		);
 	}
+	//---------------------------------------------------------------------------------
+	private void arrivedReceive() {
+		report.mqttConnect(
+				"/drone/chicken/delivery/response",
+				"/drone/chicken/delivery/request"
+		);
+	}
+
 	//---------------------------------------------------------------------------------
 	@FXML public StackPane hudPane;
 	public Hud hud;
@@ -354,7 +365,7 @@ public class GcsMainController implements Initializable {
 					public void receive(JSONObject jsonMessage) {
 						flightMap.controller.showInfoLabel("미션 업로드 성공");
 					}
-				});		
+				});
 		
 		drone.flightController.addMavJsonListener(
 				MavJsonMessage.MAVJSON_MSG_ID_MISSION_ITEMS,
@@ -539,7 +550,7 @@ public class GcsMainController implements Initializable {
 		@Override
 		public void handle(ActionEvent event) {
 			JSONArray jsonArray = flightMap.controller.getMissionItems();
-			if(jsonArray.length() < 2) {
+			if (jsonArray.length() < 2) {
 				AlertDialog.showOkButton("알림", "미션 아이템 수가 부족합니다.");
 			} else {
 				drone.flightController.sendMissionUpload(jsonArray);
@@ -664,15 +675,15 @@ public class GcsMainController implements Initializable {
 			drone.flightController.sendFindControl(0, -1); //m/s
 		}
 	};
-
+	//---------------------------------------------------------------------------------
 	public EventHandler<ActionEvent> btnService1EventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			Service1 service1 = new Service1();
+			Report service1 = new Report();
 			service1.show();
 		}
 	};
-
+	//---------------------------------------------------------------------------------
 	public EventHandler<ActionEvent> btnService2EventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
@@ -680,7 +691,7 @@ public class GcsMainController implements Initializable {
 			service2.show();
 		}
 	};
-
+	//---------------------------------------------------------------------------------
 	public EventHandler<ActionEvent> btnService3EventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event){
@@ -688,6 +699,5 @@ public class GcsMainController implements Initializable {
 			service3.show();
 		}
 	};
-
 
 }
