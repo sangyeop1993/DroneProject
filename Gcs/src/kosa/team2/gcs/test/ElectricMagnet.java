@@ -17,6 +17,7 @@ public class ElectricMagnet {
         client = new MqttClient( "tcp://106.253.56.124:1882", MqttClient.generateClientId(), null);
         client.connect();
         electronicMagnetStatus();
+        System.out.println("연결이 되엇다");
     }
 
     //Method

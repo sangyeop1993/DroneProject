@@ -137,7 +137,7 @@ public class FlightController {
     //---------------------------------------------------------------------------------
     public String mode;
     public boolean arm;
-    private void receiveHeartbeat() {
+    public void receiveHeartbeat() {
         addMavJsonListener(
                 MavJsonMessage.MAVJSON_MSG_ID_HEARTBEAT,
                 new MavJsonListener() {
@@ -261,7 +261,7 @@ public class FlightController {
     }
     //---------------------------------------------------------------------------------
     private ExecutorService mqttSendToDronePool = Executors.newFixedThreadPool(1);
-    private void mqttSendToFlightController(JSONObject jsonObject) {
+    public void mqttSendToFlightController(JSONObject jsonObject) {
         if(mqttClient != null && mqttClient.isConnected()) {
             Runnable runnable = new Runnable() {
                 @Override

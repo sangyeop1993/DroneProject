@@ -39,7 +39,7 @@ public class Report {
                 mqttClient = new MqttClient("tcp://106.253.56.124:1882", MqttClient.generateClientId(),null);
                 MqttConnectOptions option = new MqttConnectOptions();
                 mqttClient.connect(option);
-
+                mqttReceiveFromWeb();
                 logger.info("Report MQTT Connected: " + "tcp://106.253.56.124:1882");
 
             }catch(Exception e){
@@ -47,13 +47,13 @@ public class Report {
                 try { mqttClient.close(); } catch (Exception e1) {}
                 try { Thread.sleep(1000); } catch (InterruptedException e1) {}
             }
-        mqttReceiveFromWeb();
     }
-    private void mqttReceiveFromWeb() {
+
+    private void mqttReceiveFromWeb() throws MqttException {
         mqttClient.setCallback(new MqttCallback() {
             @Override
             public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-
+                logger.info("Mqtt 연결완료 주문확인창");
             }
 
             @Override
@@ -80,17 +80,11 @@ public class Report {
 
             }
         });
-
-        try {
-            mqttClient.subscribe(subTopic);
-            logger.info("Magnet MQTT subscribed: " + subTopic);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mqttClient.subscribe(subTopic);
+        logger.info("Magnet MQTT subscribed: " + subTopic);
     }
 
-
-    public static void show(){
+    public static void show() {
         try{
             stage = new Stage(StageStyle.UTILITY);
             stage.initModality(Modality.WINDOW_MODAL);

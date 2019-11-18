@@ -18,6 +18,7 @@ import kosa.team2.gcs.network.NetworkConfig;
 import kosa.team2.gcs.report.Report;
 import kosa.team2.gcs.service2.Service2;
 import kosa.team2.gcs.service3.Service3;
+import kosa.team2.gcs.test.ArrivedDrone;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -77,6 +78,7 @@ public class GcsMainController implements Initializable {
 
 	public Drone drone;
 	public Report report;
+	public ArrivedDrone arrivedDrone;
 	//---------------------------------------------------------------------------------
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -114,8 +116,10 @@ public class GcsMainController implements Initializable {
 
 		drone = new Drone();
 		report = new Report();
+		arrivedDrone = new ArrivedDrone();
 
 		arrivedReceive();
+		arrivedDrone();
 		initHud();
 		initMessageView();
 		initCameraView();
@@ -154,6 +158,13 @@ public class GcsMainController implements Initializable {
 		report.mqttConnect(
 				"/drone/chicken/delivery/response",
 				"/drone/chicken/delivery/request"
+		);
+	}
+	//---------------------------------------------------------------------------------
+	private void arrivedDrone() {
+		arrivedDrone.mqttConnect(
+				"/drone/chicken/delivery/callBack",
+				"/drone/chicken/delivery/success"
 		);
 	}
 
@@ -550,6 +561,7 @@ public class GcsMainController implements Initializable {
 		@Override
 		public void handle(ActionEvent event) {
 			JSONArray jsonArray = flightMap.controller.getMissionItems();
+
 			if (jsonArray.length() < 2) {
 				AlertDialog.showOkButton("알림", "미션 아이템 수가 부족합니다.");
 			} else {
