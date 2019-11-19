@@ -518,7 +518,6 @@ public class FlightMapController implements Initializable {
                 msg.setY(jsonObject.getDouble("y"));
                 msg.setZ(jsonObject.getFloat("z"));
             }
-
             missionItems.add(msg);
         }
 
