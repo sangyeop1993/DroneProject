@@ -11,6 +11,8 @@ import kosa.team2.drone.test.ConnectionTest;
 import kosa.team2.drone.test.Electromagnet;
 import syk.drone.device.Camera;
 import syk.drone.device.FlightController;
+import syk.drone.device.PCF8591;
+import syk.drone.device.ThermistorSensor;
 
 public class RealMain {
     public static void main(String[] args) {
@@ -56,5 +58,9 @@ public class RealMain {
         }catch(Exception e) {
             System.out.println("Error");
         }
+
+        new ThermistorSensor();
+
     }
+
 }

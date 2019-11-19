@@ -567,6 +567,7 @@ public class GcsMainController implements Initializable {
 			} else {
 				drone.flightController.sendMissionUpload(jsonArray);
 			}
+
 		}
 	};
 	//---------------------------------------------------------------------------------
