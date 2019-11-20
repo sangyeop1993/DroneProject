@@ -29,7 +29,7 @@
       </HBox>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
-            <HBox spacing="10.0" BorderPane.alignment="CENTER">
+            <HBox spacing="10.0" style="-fx-background-color: fdbd33;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnAddTakeoff" maxWidth="1.7976931348623157E308" minHeight="30.0" mnemonicParsing="false" text="이륙" HBox.hgrow="ALWAYS" />
                   <Button fx:id="btnAddLand" maxWidth="1.7976931348623157E308" minHeight="30.0" mnemonicParsing="false" text="착륙" HBox.hgrow="ALWAYS" />

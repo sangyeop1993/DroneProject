@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -11,7 +12,10 @@
    <left>
       <VBox maxWidth="350.0" minWidth="350.0" prefWidth="350.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <StackPane fx:id="hudPane" maxHeight="300.0" maxWidth="350.0" minHeight="300.0" minWidth="350.0" prefHeight="300.0" prefWidth="350.0" />
+            <StackPane fx:id="hudPane" maxHeight="300.0" maxWidth="350.0" minHeight="300.0" minWidth="350.0" prefHeight="300.0" prefWidth="350.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children></StackPane>
             <HBox prefWidth="200.0" spacing="5.0" styleClass="pane2">
                <children>
                   <Button fx:id="btnMessageView" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" text="메시지뷰" HBox.hgrow="ALWAYS" />
@@ -33,7 +37,7 @@
          <children>
             <BorderPane fx:id="centerBorderPane">
             	<right>
-					<VBox minWidth="300.0" BorderPane.alignment="CENTER">
+					<VBox minWidth="300.0" style="-fx-background-image: fdbd33;" BorderPane.alignment="CENTER">
 					   <children>
 					      <Separator prefWidth="200.0" />
 					      <VBox prefWidth="100.0" spacing="5.0" styleClass="pane2">
@@ -189,13 +193,17 @@
       </StackPane>
    </center>
    <top>
-      <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #EEE;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Ground Control Station">
-               <font>
-                  <Font name="Times New Roman Bold Italic" size="34.0" />
-               </font>
-            </Label>
+            <HBox prefHeight="15.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Chicken_logo.PNG" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button fx:id="btnService1" maxHeight="40.0" maxWidth="1.7976931348623157E308" minHeight="40.0" mnemonicParsing="false" text="주문요청내역" />

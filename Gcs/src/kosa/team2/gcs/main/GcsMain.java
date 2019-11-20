@@ -17,7 +17,7 @@ public class GcsMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		instance = this;
-		
+
 		this.primaryStage = primaryStage;
 
 		//실행시 하얀 백그라운드를 보이지 않도록 하기 위해서 필요
