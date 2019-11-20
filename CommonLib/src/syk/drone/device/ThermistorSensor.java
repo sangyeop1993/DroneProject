@@ -47,10 +47,11 @@ public class ThermistorSensor {
                             mqttClient.disconnect();
                             mqttClient.close();
                         }
+                        //System.out.println(temperature_1);
                         mqttClient = new MqttClient("tcp://106.253.56.124:1882", MqttClient.generateClientId(), null);
                         mqttClient.connect();
                         mqttClient.publish(pubTopic, json.getBytes(), 0, false);
-                        Thread.sleep(1000);
+                        Thread.sleep(5000);
                     } catch(Exception e) {}
                 }
             }
