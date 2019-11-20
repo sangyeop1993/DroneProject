@@ -64,11 +64,11 @@ linear-gradient(#fdbd33 0%, #fdd36d 25%, #fdeca0 75%, #fdfac3 100%);
 }
 
 .table-view .column-header .label{
-    -fx-text-fill: #000;
+    -fx-text-fill: #fff;
 }
 
 .table-view .table-cell{
-    -fx-text-fill: #000;
+    -fx-text-fill: #fff;
     -fx-alignment: center;
 }
 

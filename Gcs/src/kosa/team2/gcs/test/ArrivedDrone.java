@@ -80,18 +80,18 @@ public class ArrivedDrone {
                         JSONObject object = wayBackHome.getJSONObject(i);
                         object.put("seq", newSeq);
                         newWay.put(object);
-                    if(i==1) {
-                        object.put("seq", newSeq);
-                        object.put("command", MavJsonMessage.MAVJSON_MISSION_COMMAND_RTL);
-                        object.put("param1", 0);
-                        object.put("param2", 0);
-                        object.put("param3", 0);
-                        object.put("param4", 0);
-                        object.put("x", homePointX);
-                        object.put("y", homePointY);
-                        object.put("z", 0);
+                        if(i==1) {
+                            object.put("seq", newSeq);
+                            object.put("command", MavJsonMessage.MAVJSON_MISSION_COMMAND_RTL);
+                            object.put("param1", 0);
+                            object.put("param2", 0);
+                            object.put("param3", 0);
+                            object.put("param4", 0);
+                            object.put("x", homePointX);
+                            object.put("y", homePointY);
+                            object.put("z", 0);
+                        }
                     }
-                }
                 try {
                     GcsMain.instance.controller.flightMap.controller.missionClear();
                     GcsMain.instance.controller.flightMap.controller.setMissionItems2(newWay);
