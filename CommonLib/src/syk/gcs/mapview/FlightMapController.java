@@ -621,7 +621,7 @@ public class FlightMapController implements Initializable {
 	        missionItem.setStrCommand("TAKEOFF");
 	        missionItem.setX(selectedMissionItem.getX());
 	        missionItem.setY(selectedMissionItem.getY());
-	        missionItem.setZ(10);
+	        missionItem.setZ(30);
 	        missionItems.add(selectedIndex+1, missionItem);
 	        for(int i=0; i<missionItems.size(); i++) {
 	            missionItems.get(i).setSeq(i);

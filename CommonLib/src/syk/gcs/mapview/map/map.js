@@ -47,7 +47,7 @@ var map = {
                         param4: 0,
                         x: ev.latLng.lat(),
                         y: ev.latLng.lng(),
-                        z: 10
+                        z: 30
                     };
                     map.uav.missionMarkerMake(missionItem);
                 } else {
